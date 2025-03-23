@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YumRecipe</title>
+    <!-- Подключаем Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        }
+        #container {
+            display: flex;
+        }
+        #sidebar-left {
+            width: 15%;
+            background-color: #f4f4f4;
+            height: 100vh;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .spaced-button {
+            margin-bottom: 10px;
+        }
+        .centered-heading {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="sidebar-left">
+            <h3>YumRecipe</h3>
+            <button class="btn btn-primary spaced-button" type="button">меню</button>
+            <button class="btn btn-primary spaced-button" type="button">о нас</button>
+            <button class="btn btn-primary spaced-button" type="button">авторизация</button>
+            <button class="btn btn-primary spaced-button" type="button">создать пост</button>
+        </div>
+    </div>
+
+     <!-- Подключаем Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% block content %}
+
+    {% endblock %}
+</body>
+</html>
