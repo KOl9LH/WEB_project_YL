@@ -5,43 +5,54 @@
     #main-content {
         flex: 1;
         padding: 10px;
-        margin-left: 46%;
+        margin-left: 15%;
+        margin-right: 25%;
         text-align: left;
     }
 
-    #sidebar-right {
-        width: 20%;
-        background-color: #f9f9f9;
-        height: 100vh;
-        padding: 10px;
-        order: 1;
-        position: absolute;
-        top: 0;
-        right: 0;
-    }
     #header {
         text-align: center;
         font-size: 24px;
         font-weight: bold;
         padding: 10px;
-        position: relative;
-        z-index: 1;
     }
-    .post-content{
+
+    .post-content {
         margin-top: 50px;
     }
 
-</style>
-<div id="header">Главное меню</div>
-<div id="main-content">
-    <div class = "post-content">
-    <h3>Посты</h3>
-    </div>
-</div>
+    .centered-heading {
+        text-align: center;
+    }
 
-<div id="sidebar-right">
-    <h3>Информация о сайте</h3>
-    <h5>проделывается работа над созданием шаблона base и main_str 23.03<br></h5>
+    .main-post-container {
+        width: 100%;
+        min-height: 100px; /* Минимальная высота */
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+    }
+
+    .post-text {
+        font-size: 18px;
+        color: #495057;
+        text-align: left;
+        padding: 0;
+        margin: 0;
+    }
+</style>
+
+<div id="header">Главное меню</div>
+
+<div id="main-content">
+    <div class="post-content">
+        <h3>Посты</h3>
+        <div class="main-post-container">
+            <div class="post-text">текст</div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

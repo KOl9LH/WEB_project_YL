@@ -11,7 +11,6 @@
             margin: 0;
             font-family: Arial, sans-serif;
         }
-        }
         #container {
             display: flex;
         }
@@ -33,25 +32,47 @@
         .centered-heading {
             text-align: center;
         }
+        #sidebar-right {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 25%;
+            border: 1px solid black;
+            padding: 10px;
+            background-color: #f9f9f9;
+            height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body>
-    <div id="container">
-        <div id="sidebar-left">
-            <h3>YumRecipe</h3>
-            <button class="btn btn-primary spaced-button" type="button">меню</button>
-            <button class="btn btn-primary spaced-button" type="button">о нас</button>
-            <button class="btn btn-primary spaced-button" type="button">авторизация</button>
-            <button class="btn btn-primary spaced-button" type="button">создать пост</button>
-        </div>
+<div id="container">
+    <div id="sidebar-left">
+        <h3>YumRecipe</h3>
+        <button class="btn btn-primary spaced-button" type="button" onclick="navigateTo('/')">Главное меню</button>
+        <button class="btn btn-primary spaced-button" type="button" onclick="navigateTo('AboutUs')">О нас</button>
+        <button class="btn btn-primary spaced-button" type="button" onclick="navigateTo('logging')">Авторизация</button>
+        <button class="btn btn-primary spaced-button" type="button" onclick="navigateTo('CreatePost')">Создать пост</button>
     </div>
+</div>
+<div id="sidebar-right">
+    <h3 class="centered-heading">Новости сайта</h3>
+    <p>23.03.2025: Работа над шаблонами base и main_str (главная страница)<br>30.03.2025: Работа над шаблонами about_us (О нас), log_in (вход в аккаунт), register (регистрация) и create_post (создание поста)</p>
+</div>
 
-     <!-- Подключаем Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Подключаем Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Функция для навигации
+    function navigateTo(page) {
+        window.location.href = page; // Переход на указанный шаблон
+    }
+</script>
+
 {% block content %}
-
-    {% endblock %}
+{% endblock %}
 </body>
 </html>

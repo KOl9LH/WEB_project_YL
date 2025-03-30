@@ -12,9 +12,24 @@ def mainstr():
     return render_template('main_str.html')
 
 
+@app.route('/AboutUs')
+def AboutUs():
+    return render_template('about_us.html')
 
 
+@app.route('/logging')
+def logging():
+    return render_template('log_in.html')
 
+
+@app.route('/registering')
+def registering():
+    return render_template('register.html')
+
+
+@app.route('/CreatePost')
+def CreatePost():
+    return render_template('create_post.html')
 
 
 

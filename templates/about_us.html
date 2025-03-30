@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    /* Основной контейнер */
+    #main-container {
+        margin-left: 15%; /* Отступ слева для основного контента */
+        padding-top: 20px;
+    }
+
+    /* Прямоугольник с текстом */
+    #main-content {
+        border: 1px solid black; /* Рамка вокруг текста */
+        padding: 20px;
+        width: 60%; /* Ширина прямоугольника с текстом */
+    }
+
+    /* Заголовок страницы */
+    .centered-heading {
+        text-align: center;
+    }
+
+</style>
+
+<!-- Заголовок страницы -->
+<h2 class="centered-heading">О нас</h2>
+
+<!-- Основной контейнер -->
+<div id="main-container">
+    <!-- Прямоугольник с текстом -->
+    <div id="main-content">
+        <p>Тут будет текст с описанием создателя, работы программы и т.д.</p>
+    </div>
+</div>
+
+{% endblock %}
