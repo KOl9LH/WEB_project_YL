@@ -6,43 +6,48 @@
     <title>YumRecipe</title>
     <!-- Подключаем Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        #container {
-            display: flex;
-        }
-        #sidebar-left {
-            width: 15%;
-            background-color: #f4f4f4;
-            height: 100vh;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        .spaced-button {
-            margin-bottom: 10px;
-        }
-        .centered-heading {
-            text-align: center;
-        }
-        #sidebar-right {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 25%;
-            border: 1px solid black;
-            padding: 10px;
-            background-color: #f9f9f9;
-            height: calc(100vh - 40px);
-            overflow-y: auto;
-        }
+    .success {
+        color: green;
+        text-align: center;
+    }
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+    #container {
+        display: flex;
+    }
+    #sidebar-left {
+        width: 15%;
+        background-color: #f4f4f4;
+        height: 100vh;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* Распределяем элементы по вертикали */
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+    .spaced-button {
+        margin-bottom: 10px;
+    }
+    .centered-heading {
+        text-align: center;
+    }
+    #sidebar-right {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 25%;
+        border: 1px solid black;
+        padding: 10px;
+        background-color: #f9f9f9;
+        height: calc(100vh - 40px);
+        overflow-y: auto;
+    }
     </style>
 </head>
 <body>
@@ -50,14 +55,34 @@
     <div id="sidebar-left">
         <h3>YumRecipe</h3>
         <button class="btn btn-primary spaced-button" type="button" onclick="navigateTo('/')">Главное меню</button>
-        <button class="btn btn-primary spaced-button" type="button" onclick="navigateTo('AboutUs')">О нас</button>
+        <button class="btn btn-primary spaced-button" type="button" onclick="navigateTo('AboutUs')">Об авторе</button>
+        {% if not current_user.is_authenticated %}
         <button class="btn btn-primary spaced-button" type="button" onclick="navigateTo('logging')">Авторизация</button>
-        <button class="btn btn-primary spaced-button" type="button" onclick="navigateTo('CreatePost')">Создать пост</button>
+        {% endif %}
+        {% if current_user.is_authenticated %}
+        <button class="btn btn-primary spaced-button" type="button" onclick="navigateTo('CreatePost')">Создать пост
+        </button>
+        {% endif %}
+
+        <!-- Перенесли кнопки вниз -->
+        <div style="text-align: center; margin-top: auto;"> <!-- Располагаем внизу сайдбара -->
+            {% if current_user.is_authenticated %}
+            <p>Вы вошли как: {{ current_user.nickname }} ({{ current_user.email }})</p>
+            <a href="{{ url_for('logout') }}" class="btn btn-danger btn-sm">Выйти</a>
+            {% else %}
+            <p>Вы не авторизованы.</p>
+            <a href="{{ url_for('logging') }}" class="btn btn-primary btn-sm">Войти</a>
+            <a href="{{ url_for('registering') }}" class="btn btn-secondary btn-sm">Регистрация</a>
+            {% endif %}
+        </div>
     </div>
+
+</div>
 </div>
 <div id="sidebar-right">
     <h3 class="centered-heading">Новости сайта</h3>
-    <p>23.03.2025: Работа над шаблонами base и main_str (главная страница)<br>30.03.2025: Работа над шаблонами about_us (О нас), log_in (вход в аккаунт), register (регистрация) и create_post (создание поста)</p>
+    <p>23.03.2025: Работа над шаблонами base и main_str<br>30.03.2025: Работа над шаблонами about_us, log_in, register и
+        create_post<br>04.04.2025: начало работы с базой данных и добавлении функций<br>08.04.2025 продолжается работа над базой данных и добавлением функций. Добавлено много всего</p>
 </div>
 
 <!-- Подключаем Bootstrap JS -->

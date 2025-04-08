@@ -4,7 +4,7 @@
 <style>
     /* Основной контейнер */
     #main-container {
-        margin-left: 15%; /* Отступ слева для основного контента */
+        margin-left: 20%; /* Отступ слева для основного контента */
         padding-top: 20px;
     }
 
@@ -18,18 +18,21 @@
     /* Заголовок страницы */
     .centered-heading {
         text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        padding: 10px;
     }
 
 </style>
 
 <!-- Заголовок страницы -->
-<h2 class="centered-heading">О нас</h2>
+<h2 class="centered-heading">Об авторе</h2>
 
 <!-- Основной контейнер -->
 <div id="main-container">
     <!-- Прямоугольник с текстом -->
     <div id="main-content">
-        <p>Тут будет текст с описанием создателя, работы программы и т.д.</p>
+        <p>{{ about_us }}</p>
     </div>
 </div>
 

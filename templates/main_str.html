@@ -26,13 +26,15 @@
     }
 
     .main-post-container {
-        width: 100%;
+        width: 95%;
         min-height: 100px; /* Минимальная высота */
         background-color: #f8f9fa;
         border: 1px solid #dee2e6;
         padding: 20px;
         margin-bottom: 20px;
         box-sizing: border-box;
+        overflow-wrap: break-word;
+
     }
 
     .post-text {
@@ -41,6 +43,7 @@
         text-align: left;
         padding: 0;
         margin: 0;
+        word-wrap: break-word;
     }
 </style>
 
@@ -49,9 +52,38 @@
 <div id="main-content">
     <div class="post-content">
         <h3>Посты</h3>
+        {% for post in posts %}
         <div class="main-post-container">
-            <div class="post-text">текст</div>
+            <div class="post-text">{{ post.title }}</div>
+            {% if post.is_edited %}
+            <p>Автор: {{ post.user.nickname }}</p>
+            <p>Опубликовано {{ post.created_at.strftime('%d.%m.%Y') }} в {{ post.created_at.strftime('%H:%M') }} (изменено)</p>
+            {% else %}
+            <p>Автор: {{ post.user.nickname }}</p>
+            <p>Опубликовано {{ post.created_at.strftime('%d.%m.%Y') }} в {{ post.created_at.strftime('%H:%M') }}</p>
+            {% endif %}
+            <a href="{{ url_for('post_detail', post_id=post.id) }}" class="btn btn-primary btn-sm">Подробнее</a>
+            {% if current_user.is_authenticated %}
+            {% if current_user.nickname == 'admin' or current_user.id == post.user_id %}
+            <a href="{{ url_for('edit_post', post_id=post.id) }}" class="btn btn-primary btn-sm">Редактировать</a>
+            <a href="{{ url_for('delete_post', post_id=post.id) }}" class="btn btn-danger btn-sm">Удалить</a>
+            {% if current_user.nickname == 'admin' %}
+            <a href="{{ url_for('ban_user', user_id=post.user_id) }}" class="btn btn-dark btn-sm">Забанить</a>
+            {% endif %}
+            {% endif %}
+            {% endif %}
         </div>
+        {% endfor %}
+
+
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;">
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('CreatePost') }}" class="btn btn-primary">Создать пост</a>
+        {% else %}
+        <a href="{{ url_for('logging') }}" class="btn btn-primary">Войти, чтобы создать пост</a>
+        {% endif %}
     </div>
 </div>
 

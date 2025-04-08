@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .post-detail-container {
+    position: relative;
+    left: -120px;
+    width: 55%; /* Ширина контейнера */
+    margin: 40px auto; /* Отступы для центрирования */
+    background-color: #f8f9fa; /* Фон контейнера */
+    border: 1px solid #dee2e6; /* Рамка контейнера */
+    padding: 20px; /* Внутренние отступы */
+    box-sizing: border-box; /* Учет отступов и рамки в размерах */
+    overflow-wrap: break-word;
+}
+
+.post-text {
+    font-size: 18px;
+    color: #495057;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+    word-wrap: break-word;
+    }
+
+
+.back-button-container {
+    position: relative;
+    left: -200px; /* Сдвигаем кнопку влево на ту же величину, что и контейнер */
+    text-align: right; /* Выравнивание кнопки вправо */
+    margin-top: -20px; /* Отступ сверху */
+    width: 55%; /* Ширина контейнера для кнопки */
+    }
+</style>
+<div class="post-detail-container">
+    <h2>{{ post.title }}</h2>
+    <div class="post-text">{{ post.content }}</div>
+    {% if post.is_edited %}
+    <p>Автор: {{ post.user.nickname }}</p>
+    <p>Опубликовано {{ post.created_at.strftime('%d.%m.%Y') }} в {{ post.created_at.strftime('%H:%M') }} (изменено)</p>
+    {% else %}
+    <p>Автор: {{ post.user.nickname }}</p>
+    <p>Опубликовано {{ post.created_at.strftime('%d.%m.%Y') }} в {{ post.created_at.strftime('%H:%M') }}</p>
+    {% endif %}
+</div>
+<div class="back-button-container">
+    <a href="{{ url_for('mainstr') }}" class="btn btn-secondary btn-sm">Назад</a>
+</div>
+{% endblock %}
