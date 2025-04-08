@@ -4,7 +4,6 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
 from flask_login import UserMixin
 from datetime import datetime, timezone, timedelta
-import os
 import pytz
 Base = declarative_base()
 

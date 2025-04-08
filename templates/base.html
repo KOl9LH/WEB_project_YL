@@ -53,13 +53,13 @@
 <div id="container">
     <div id="sidebar-left">
         <h3>YumRecipe</h3>
-        <button class="btn btn-primary spaced-button" type="button" onclick="navigateTo('/')">Главное меню</button>
-        <button class="btn btn-primary spaced-button" type="button" onclick="navigateTo('AboutUs')">Об авторе</button>
+        <button class="btn btn-primary spaced-button" type="button" onclick="window.location.href='{{ url_for('mainstr') }}'">Главное меню</button>
+        <button class="btn btn-primary spaced-button" type="button" onclick="window.location.href='{{ url_for('AboutUs') }}'">Об авторе</button>
         {% if not current_user.is_authenticated %}
-        <button class="btn btn-primary spaced-button" type="button" onclick="navigateTo('logging')">Авторизация</button>
+        <button class="btn btn-primary spaced-button" type="button" onclick="window.location.href='{{ url_for('logging') }}'">Авторизация</button>
         {% endif %}
         {% if current_user.is_authenticated %}
-        <button class="btn btn-primary spaced-button" type="button" onclick="navigateTo('CreatePost')">Создать пост
+        <button class="btn btn-primary spaced-button" type="button" onclick="window.location.href='{{ url_for('CreatePost') }}'">Создать пост
         </button>
         {% endif %}
 
