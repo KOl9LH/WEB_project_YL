@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+
+
+</style>
+<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    {% if post %}
+    <h1 style="text-align: center;">Редактирование поста</h1>
+    {% else %}
+    <h1 style="text-align: center;">Создание поста</h1>
+    {% endif %}
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class="list-group">
+        {% for message in messages %}
+        <li class="list-group-item list-group-item-danger">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <form method="POST">
+        <input type="text" name="title" placeholder="Введите заголовок поста..."
+               style="width: 900px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; display: block; margin: 20px auto;"
+               value="{{ post.title if post else '' }}">
+        <textarea name="content"
+                  style="width: 900px; min-height: 300px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; display: block; margin: 20px auto; resize: none;"
+                  placeholder="Введите текст вашего поста здесь">{{ post.content if post else '' }}</textarea>
+
+        {% if post %}
+        <button type="submit"
+                style="display: block; margin: 20px auto; padding: 10px 30px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+            Изменить
+        </button>
+        {% else %}
+        <button type="submit"
+                style="display: block; margin: 20px auto; padding: 10px 30px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+            Создать
+        </button>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}
