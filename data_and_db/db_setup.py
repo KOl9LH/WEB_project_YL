@@ -16,7 +16,7 @@ msktime = datetime.now(mskzone)
 time_atm = msktime.strftime('%H:%M')
 
 
-class User(Base, UserMixin):  # Добавляем UserMixin
+class User(Base, UserMixin):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
     nickname = Column(String, nullable=False)
@@ -24,7 +24,6 @@ class User(Base, UserMixin):  # Добавляем UserMixin
     password = Column(String, nullable=False)
 
 
-# Модель поста
 class Post(Base):
     __tablename__ = 'posts'
     id = Column(Integer, primary_key=True)
@@ -39,7 +38,6 @@ class Post(Base):
 User.posts = relationship('Post', order_by=Post.id, back_populates='user')
 
 
-# Создание базы данных SQLite
 def init_db():
     engine = create_engine('sqlite:///YumRecipe.db')
     Base.metadata.create_all(engine)

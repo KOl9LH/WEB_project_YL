@@ -13,12 +13,10 @@ from db_setup import User, Post
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '150708'
 
-# Настройка базы данных
 engine = create_engine('sqlite:///data_and_db/YumRecipe.db')
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# Настройка Flask-Login
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'logging'
@@ -32,10 +30,6 @@ def load_user(user_id):
 @app.route('/')
 def mainstr():
     posts = session.query(Post).all()
-    news = [
-        "23.03.2025: Работа над шаблонами base и main_str",
-        "30.03.2025: Работа над шаблонами about_us, log_in, register и create_post"
-    ]
     return render_template('main_str.html', posts=posts)
 
 
@@ -51,7 +45,6 @@ def logging():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        # Поиск пользователя по email
         user = session.query(User).filter_by(email=email).first()
 
         if not user:
@@ -75,12 +68,10 @@ def registering():
         password = request.form.get('password')
         confirm_password = request.form.get('confirmPassword')
 
-        # Проверка валидности данных
         if not nickname or not email or not password or not confirm_password:
             flash('Заполните все поля!', 'danger')
             return redirect(url_for('registering'))
 
-        # Проверка существующего пользователя
         existing_user = session.query(User).filter_by(email=email).first()
         if existing_user:
             flash('Этот email уже зарегистрирован!', 'danger')
@@ -95,13 +86,11 @@ def registering():
             flash('Пароли не совпадают!', 'danger')
             return redirect(url_for('registering'))
 
-        # Добавление нового пользователя
         hashed_password = generate_password_hash(password)
         new_user = User(nickname=nickname, email=email, password=hashed_password)
         session.add(new_user)
         session.commit()
 
-        # Авторизация пользователя
         login_user(new_user)
 
         return redirect(url_for('mainstr'))
@@ -196,12 +185,10 @@ def ban_user(user_id):
     if not user:
         return redirect(url_for('mainstr'))
 
-    # Удаление всех постов пользователя
     posts = session.query(Post).filter_by(user_id=user_id).all()
     for post in posts:
         session.delete(post)
 
-    # Удаление пользователя
     session.delete(user)
     session.commit()
     return redirect(url_for('mainstr'))

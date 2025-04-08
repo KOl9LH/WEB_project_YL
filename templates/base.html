@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YumRecipe</title>
-    <!-- Подключаем Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <style>
@@ -26,7 +25,7 @@
         padding: 10px;
         display: flex;
         flex-direction: column;
-        justify-content: space-between; /* Распределяем элементы по вертикали */
+        justify-content: space-between;
         position: fixed;
         top: 0;
         left: 0;
@@ -64,8 +63,7 @@
         </button>
         {% endif %}
 
-        <!-- Перенесли кнопки вниз -->
-        <div style="text-align: center; margin-top: auto;"> <!-- Располагаем внизу сайдбара -->
+        <div style="text-align: center; margin-top: auto;">
             {% if current_user.is_authenticated %}
             <p>Вы вошли как: {{ current_user.nickname }} ({{ current_user.email }})</p>
             <a href="{{ url_for('logout') }}" class="btn btn-danger btn-sm">Выйти</a>
@@ -85,7 +83,6 @@
         create_post<br>04.04.2025: начало работы с базой данных и добавлении функций<br>08.04.2025 продолжается работа над базой данных и добавлением функций. Добавлено много всего</p>
 </div>
 
-<!-- Подключаем Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
