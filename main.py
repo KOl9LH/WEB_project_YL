@@ -7,7 +7,6 @@ import sys
 from datetime import datetime
 
 sys.path.append('data_and_db')
-
 from db_setup import User, Post
 
 app = Flask(__name__)
@@ -24,22 +23,25 @@ login_manager.login_view = 'logging'
 
 @login_manager.user_loader
 def load_user(user_id):
-    return session.query(User).get(int(user_id))
+    return session.query(User).get(int(user_id))  # загружает юзер
 
 
 @app.route('/')
 def mainstr():
-    posts = session.query(Post).all()
-    return render_template('main_str.html', posts=posts)
+    posts = session.query(Post).order_by(Post.created_at.desc()).all()
+    return render_template('index.html', posts=posts)  # функция отвечающая за работу главной страницы сайта
 
 
 @app.route('/AboutUs')
 def AboutUs():
-    about_us = 'Меня зовут Коля, мне 16. Учусь в яндекс лицее, почти закончил второй год. Этот проект я делал около 1 месяца. Результат получился таким каким я хотел чтобы он был. Собираюсь продолжать обучаться программированию в других курсах. Спасибо за вход на сайт и за прочтение.'
-    return render_template('about_us.html', about_us=about_us)
+    about_us = ('Меня зовут Коля, мне 16. Учусь в яндекс лицее, почти закончил второй год.'
+                ' Этот проект я делал около 1 месяца. Результат получился таким каким я хотел чтобы он был.'
+                ' Собираюсь продолжать обучаться программированию в других курсах.'
+                ' Спасибо за вход на сайт и за прочтение.')
+    return render_template('about_us.html', about_us=about_us)  # функция отвечающая за работу страницы "о нас"
 
 
-@app.route('/logging', methods=['GET', 'POST'])
+@app.route('/logging', methods=['GET', 'POST'])  # функция отвечающая за работу страницы "вход"
 def logging():
     if request.method == 'POST':
         email = request.form.get('email')
@@ -60,7 +62,7 @@ def logging():
     return render_template('log_in.html')
 
 
-@app.route('/registering', methods=['GET', 'POST'])
+@app.route('/registering', methods=['GET', 'POST'])  # функция отвечающая за работу страницы "регистрация"
 def registering():
     if request.method == 'POST':
         nickname = request.form.get('nickname')
@@ -98,7 +100,7 @@ def registering():
     return render_template('register.html')
 
 
-@app.route('/CreatePost', methods=['GET', 'POST'])
+@app.route('/CreatePost', methods=['GET', 'POST'])  # функция отвечающая за работу страницы "создать пост"
 @app.route('/CreatePost/<int:post_id>', methods=['GET', 'POST'])
 @login_required
 def CreatePost(post_id=None):
@@ -142,22 +144,20 @@ def CreatePost(post_id=None):
     return render_template('create_post.html', post=post)
 
 
-
-
-@app.route('/logout')
+@app.route('/logout')  # функция отвечающая за выход из аккаунта
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('mainstr'))
 
 
-@app.route('/edit_post/<int:post_id>', methods=['GET', 'POST'])
+@app.route('/edit_post/<int:post_id>', methods=['GET', 'POST']) # функция отвечающая за изменение выложенного пользователем поста
 @login_required
 def edit_post(post_id):
     return redirect(url_for('CreatePost', post_id=post_id))
 
 
-@app.route('/delete_post/<int:post_id>')
+@app.route('/delete_post/<int:post_id>')  # функция отвечающая за удаление созданного пользователем поста
 @login_required
 def delete_post(post_id):
     post = session.query(Post).filter_by(id=post_id).first()
@@ -175,7 +175,7 @@ def delete_post(post_id):
     return redirect(url_for('mainstr'))
 
 
-@app.route('/ban_user/<int:user_id>')
+@app.route('/ban_user/<int:user_id>')  # функция отвечающая за блокировку аккаунта пользователя
 @login_required
 def ban_user(user_id):
     if current_user.nickname != 'admin':
@@ -193,14 +193,13 @@ def ban_user(user_id):
     session.commit()
     return redirect(url_for('mainstr'))
 
-@app.route('/post_detail/<int:post_id>')
+
+@app.route('/post_detail/<int:post_id>')  # функция отвечающая за работу кнопки "подробнее" поста
 def post_detail(post_id):
     post = session.query(Post).filter_by(id=post_id).first()
     if not post:
-        flash('Пост не найден!', 'danger')
         return redirect(url_for('mainstr'))
     return render_template('post_detail.html', post=post)
-
 
 
 if __name__ == '__main__':
